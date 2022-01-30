@@ -1,12 +1,13 @@
 import { createAuth } from '@keystone-next/auth';
 import { config, createSchema } from '@keystone-next/keystone/schema';
-import 'dotenv/config';
 import {
   withItemData,
   statelessSessions,
 } from '@keystone-next/keystone/session';
-import { User } from './schemas/User';
+import { ProductImage } from './schemas/ProductImage';
 import { Product } from './schemas/Product';
+import { User } from './schemas/User';
+import 'dotenv/config';
 
 const databaseURL = process.env.DATABASE_URL;
 
@@ -17,11 +18,10 @@ const sessionConfig = {
 
 const { withAuth } = createAuth({
   listKey: 'User',
-  identityField: 'password',
+  identityField: 'email',
   secretField: 'password',
   initFirstItem: {
     fields: ['name', 'email', 'password'],
-    // TODO: Add in initial roles
   },
 });
 
@@ -42,16 +42,16 @@ export default withAuth(
       // Schema items go in here
       User,
       Product,
+      ProductImage,
     }),
     ui: {
-      // TODO: change this for roles
-      isAccessAllowed: ({ session }) => {
-        console.log('session: ', session);
-        return !!session?.data;
-      },
+      // Show the UI only for poeple who pass this test
+      isAccessAllowed: ({ session }) =>
+        // console.log(session);
+        !!session?.data,
     },
-    // GraphQL Query
     session: withItemData(statelessSessions(sessionConfig), {
+      // GraphQL Query
       User: 'id name email',
     }),
   })

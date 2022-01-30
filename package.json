@@ -1,5 +1,5 @@
 {
-  "name": "duds-store-app-backend",
+  "name": "messier-app-backend",
   "version": "1.0.0",
   "private": true,
   "author": "alexoviedo999",
@@ -71,5 +71,5 @@
   "engines": {
     "node": ">=14.0.0"
   },
-  "repository": "https://github.com/alexoviedo999/Duds-Store-App-Back-End"
+  "repository": "https://github.com/alexoviedo999/Messier-App-Back-End"
 }

@@ -36,7 +36,9 @@ export default withAuth(
     db: {
       adapter: 'mongoose',
       url: databaseURL,
-      // TODO: Add data seeding here
+      onConnect() {
+        console.log('Connected to database!');
+      },
     },
     lists: createSchema({
       // Schema items go in here
